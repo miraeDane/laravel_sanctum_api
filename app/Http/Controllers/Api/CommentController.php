@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -23,6 +24,40 @@ class CommentController extends Controller
         ]);
 
         return response()->json($comment, 201);
+    }
+
+    public function apiComments()
+    {
+        // $comments = Comment::all();
+        // $user = Auth::user();
+
+        // $response = $comments->map(function ($comments) {
+        //     return [
+        //         'post_id' => $comments->post_id,
+        //         'user_id' => $comments->user_id,
+        //         'body' => $comments->body,
+        //     ];
+        // });
+
+        // return response()->json([
+        //     'user' => $user,
+        //     'comments' => $response
+        // ]);
+        $comments = Comment::all();
+        $user = Auth::user();
+
+        $response = $comments->map(function ($comment) {
+            return [
+                'comment_id' => $comment->id,
+                'user_id' => $comment->user_id,
+                'body' => $comment->body
+            ];
+        });
+
+        return response()->json([
+            'user' => $user,
+            'comments' => $response
+        ]);
     }
 
     public function update(Request $request, Comment $comment)

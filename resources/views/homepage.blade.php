@@ -15,12 +15,12 @@
             </form>
         </div>
     </div>
+    </div>
 
     <div class="row mb-4">
-        <div class="col">
-            <h2>Latest Posts</h2>
-        </div>
-        <div class="col-auto">
+        <div class="col d-flex justify-content-between align-items-center">
+            <a href="{{ route('posts.allposts') }}" class="btn btn-primary">All posts</a>
+            <h2 class="mb-0">Latest Posts</h2>
             <a href="{{ route('posts.create') }}" class="btn btn-primary">Create New Post</a>
         </div>
     </div>

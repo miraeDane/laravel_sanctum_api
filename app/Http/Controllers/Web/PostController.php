@@ -16,6 +16,13 @@ class PostController
         return view('homepage', compact('posts'));
     }
 
+    public function allposts()
+    {
+        $posts = Post::all();
+        return view('posts.allposts', compact('posts'));
+    }
+
+
     public function create()
     {
         return view('posts.create');
