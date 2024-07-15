@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -13,6 +15,7 @@ class AuthController extends Controller
     {
         return view('auth.register');
     }
+
     public function register(Request $request)
     {
         // $email = 'user@domain.com';
@@ -32,10 +35,19 @@ class AuthController extends Controller
         ]);
         return redirect()->route('login');
     }
+
     public function showLoginForm()
     {
+        // You can log a message instead of using dd()
+        \Log::info('Login form method called');
+
+        // You can also add some debugging information
+        $viewPath = view()->getFinder()->find('auth.login');
+        \Log::info('Login view path: ' . $viewPath);
+
         return view('auth.login');
     }
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -50,6 +62,7 @@ class AuthController extends Controller
             'username' => 'The provided credentials do not match our records.',
         ]);
     }
+
     public function logout(Request $request)
     {
         Auth::logout();
